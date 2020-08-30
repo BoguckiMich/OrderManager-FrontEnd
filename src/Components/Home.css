@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+
+.container {
+    background-color: whitesmoke;
+    font-family: "Oswald", Arial, sans-serif;
+    margin: 0;
+    background-image: url("https://images.unsplash.com/photo-1531058240690-006c446962d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 200px 0;
+    position: relative;
+}

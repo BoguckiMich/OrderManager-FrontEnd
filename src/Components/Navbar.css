@@ -1,0 +1,10 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+    height: 30px;
+    color:white;
+    transition-timing-function: ease-in;
+    transition:all 0.5s;
+    background-color: #111;
+}

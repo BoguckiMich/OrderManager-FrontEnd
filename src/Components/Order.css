@@ -1,0 +1,15 @@
+
+.orders {
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    max-width: 50%;
+    margin: 50px auto;
+}
+
+.order_single {
+
+}
