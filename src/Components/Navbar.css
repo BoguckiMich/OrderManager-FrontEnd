@@ -8,3 +8,7 @@
     transition:all 0.5s;
     background-color: #111;
 }
+
+Link:visited {
+    color: white;
+}

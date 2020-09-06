@@ -1,0 +1,13 @@
+.userContainer {
+    display: flex;
+    justify-content: center;
+    max-width: 50%;
+    margin: auto;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+}
+.user {
+    padding: 20px;
+    margin-top: 10px;
+}

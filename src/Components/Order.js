@@ -2,35 +2,57 @@ import React, {useEffect, useState} from 'react';
 import Card from '@material-ui/core/Card'
 import axios from "axios";
 import "./Order.css"
-import {Button, CardActionArea, CardActions, CardContent, FormControl} from "@material-ui/core";
+import {Button, CardActionArea, CardActions, CardContent} from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Table from "@material-ui/core/Table";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
 
 const Order = ({fetchURL}) => {
     const [orders, setOrders] = useState([]);
+    const [couriers, setCouriers] = useState([])
     const [status, setStatus] = React.useState('');
-    const [orderValue, setOrderValue] =React.useState('')
+    const [orderValue, setOrderValue] = React.useState('')
 
     const fetchData = async () => {
-        const request = await axios(fetchURL);
+        const request = await axios("http://localhost:8080/order");
         console.log(request.data)
         setOrders(request.data)
         // console.log(orders)
     }
 
+    const fetchCourierData = async () => {
+        const request = await axios("http://localhost:8080/user");
+        console.log(request.data)
+        setCouriers(request.data)
+    }
+
     useEffect(() => {
         fetchData();
+        fetchCourierData();
     }, [])
 
 
     const handleDelete = (e, o) => {
         console.log(o.id)
         const deleteOrder = () => {
-            axios(`http://localhost:8080/order/remove/${o.id}`)
+            axios.delete(`http://localhost:8080/order/${o.id}`)
             setOrders(orders.filter((element) => element.id !== o.id));
         }
         deleteOrder();
+    }
+
+    const handleAddCourier = (e, courier, order) => {
+        console.log(courier)
+        const addCourier = () => {
+            axios.patch(`http://localhost:8080/order/${order.id}`, courier).catch(err => console.log(err.response.data)).then(fetchData);
+        }
+        addCourier()
     }
 
     const handleChangeStatus = (e) => {
@@ -46,43 +68,53 @@ const Order = ({fetchURL}) => {
         console.log(status)
         console.log(orderValue)
         const addOrder = () => {
-            axios.post("http://localhost:8080/order/create", {name: orderValue, orderStatus: status})
-            fetchData();
+            axios.post("http://localhost:8080/order/create", {
+                name: orderValue,
+                orderStatus: status
+            }).then(() => fetchData())
         }
         addOrder();
     }
 
     return (
         <div className="orders">
-            {orders.map(o => <Card className="order__single" key={o.id}> <CardActionArea>
-                <CardContent><h1>{o.name}</h1>
-                    <p>Status <span>{o.orderStatus}</span></p></CardContent>
-            </CardActionArea> <CardActions>
-                <Button size="small">Details</Button>
-                <Button size="small" color="secondary" onClick={(e) => handleDelete(e, o)}>Delete</Button>
-            </CardActions></Card>)}
+            <TableContainer>
+                <Table className="table" aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Order Name</TableCell>
+                            <TableCell align="right">Order Status</TableCell>
+                            <TableCell align="right">Courier</TableCell>
+                            <TableCell align="right">Delete?</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {orders.map((o) => (
+                            <TableRow key={o.id}>
+                                <TableCell component="th" >
+                                    {o.name}
+                                </TableCell>
+                                <TableCell align="right">{o.orderStatus}</TableCell>
+                                <TableCell align="right">
+                                    {o.userDto === null ? <div>
+                                                    <p>choose courier:</p>
+                                                    <Select
+                                                        value=""
+                                                        onChange={handleChangeStatus}
+                                                    >
+                                                        {couriers.map(c => <MenuItem value={c}
+                                                                                     onClick={(e) => handleAddCourier(e, c, o)}>{c.firstName}</MenuItem>)}
+                                                    </Select>
+                                        </div> : o.userDto.firstName}
+                                </TableCell>
+                                <TableCell align="right"><Button size="small" color="secondary" onClick={(e) => handleDelete(e, o)}>Delete</Button></TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-            <Card>
-                    <CardContent>
-                        <form autoComplete="off" onSubmit={handleSubmit}>
-                                <Input placeholder="Name of order" type="text" value={orderValue} onChange={handleInputChange}/>
-                                <hr/>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={status}
-                                    onChange={handleChangeStatus}
-                                >
-                                    <MenuItem value={"DELIVERED"}>Delivered</MenuItem>
-                                    <MenuItem value={"WAITING"}>Waiting</MenuItem>
-                                    <MenuItem value={"ONTHEWAY"}>On the Way</MenuItem>
-                                    <MenuItem value={"RECEIVED"}>Received</MenuItem>
-                                    <MenuItem value={"PREPARED"}>Prepared</MenuItem>
-                                </Select>
-                            <Button type="submit" size="small" color="primary">Add</Button>
-                        </form>
-                    </CardContent>
-            </Card>
+            <Button className="orderButton" size="large" color="primary" href="/clients/create">Create new order</Button>
         </div>
     );
 };

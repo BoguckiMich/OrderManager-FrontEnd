@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar"
 import requests from "./requests";
 import {Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
+import {OrderCreator} from "./Components/OrderCreator";
 
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
                 </Route>
                 <Route path="/">
                     <Home/>
+                </Route>
+                <Route path="/clients">
+                    <OrderCreator  />
                 </Route>
                 <Route component={Error}/>
             </Switch>
