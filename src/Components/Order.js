@@ -19,21 +19,21 @@ const Order = ({fetchURL}) => {
     const [status, setStatus] = React.useState('');
     const [orderValue, setOrderValue] = React.useState('')
 
-    // const fetchData = async () => {
-    //     const request = await axios("http://localhost:8080/order", {auth: {username: "michalek", password: "qwe123"}});
-    //     console.log(request.data)
-    //     setOrders(request.data)
-    // }
-
     const fetchData = async () => {
-        const request = await fetch("http://localhost:8080/order", { headers: new Headers({
-                'Authorization': 'Basic '+btoa('michalek:qwe123')})}).then(response=>response.json())
+        const request = await axios("http://localhost:8080/order", {auth: {username: "michalek", password: "qwe123"}})
         console.log(request.data)
         setOrders(request.data)
     }
 
+    // const fetchData = async () => {
+    //     const request = await fetch("http://localhost:8080/order", { headers: new Headers({
+    //             'Authorization': 'Basic '+btoa('michalek:qwe123')})}).then(response=>response.json())
+    //     console.log(request.data)
+    //     setOrders(request.data)
+    // }
+
     const fetchCourierData = async () => {
-        const request = await axios("http://localhost:8080/user",   {auth: {username: "michalek", password: "qwe123"}, method: "GET"});
+        const request = await axios("http://localhost:8080/user" ,   {auth: {username: "michalek", password: "qwe123"}, method: "GET"});
         console.log(request.data)
         setCouriers(request.data)
     }
