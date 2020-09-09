@@ -7,6 +7,7 @@ import requests from "./requests";
 import {Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
 import ClientCreator from "./Components/ClientCreator";
+import Client from "./Components/Client";
 
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
                 </Route>
                 <Route path="/user">
                     <User fetchURL={requests.fetchAllUsers}/>
+                </Route>
+                <Route path="/client">
+                    <Client />
                 </Route>
                 <Route path="/client/create">
                     <ClientCreator  />

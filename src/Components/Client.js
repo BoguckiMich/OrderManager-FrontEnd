@@ -12,11 +12,14 @@ const ClientCreator = () => {
         setClients(request.data)
     }
 
+    useEffect(()=>{
+        fetchData().catch(e=>console.log(e));
+    })
 
     return (
         <div>
             {clients.map(c=>(
-                <div key={c.id}>
+                <div>
                     Imie klienta:
                     {c.firstName}
                 </div>
