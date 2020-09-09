@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {Link} from "react-router-dom";
 
 const Order = ({fetchURL}) => {
     const [orders, setOrders] = useState([]);
@@ -120,7 +121,7 @@ const Order = ({fetchURL}) => {
                 </Table>
             </TableContainer>
 
-            <Button className="orderButton" size="large" color="primary" href="/clients/create">Create new order</Button>
+            <Link to="/client/create"><Button className="orderButton" size="large" color="primary">Create new order</Button></Link>
         </div>
     );
 };

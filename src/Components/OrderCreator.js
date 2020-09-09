@@ -5,7 +5,7 @@ import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-export const OrderCreator = () => {
+const OrderCreator = () => {
     return (
         <div>
             <Card>
@@ -16,3 +16,5 @@ export const OrderCreator = () => {
         </div>
     );
 };
+
+export default OrderCreator;
