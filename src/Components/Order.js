@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {Link} from "react-router-dom";
 
 const Order = ({fetchURL}) => {
     const [orders, setOrders] = useState([]);
@@ -20,14 +21,20 @@ const Order = ({fetchURL}) => {
     const [orderValue, setOrderValue] = React.useState('')
 
     const fetchData = async () => {
-        const request = await axios("http://localhost:8080/order");
+        const request = await axios("http://localhost:8080/order", {auth: {username: "michalek", password: "qwe123"}})
         console.log(request.data)
         setOrders(request.data)
-        // console.log(orders)
     }
 
+    // const fetchData = async () => {
+    //     const request = await fetch("http://localhost:8080/order", { headers: new Headers({
+    //             'Authorization': 'Basic '+btoa('michalek:qwe123')})}).then(response=>response.json())
+    //     console.log(request.data)
+    //     setOrders(request.data)
+    // }
+
     const fetchCourierData = async () => {
-        const request = await axios("http://localhost:8080/user");
+        const request = await axios("http://localhost:8080/user" ,   {auth: {username: "michalek", password: "qwe123"}, method: "GET"});
         console.log(request.data)
         setCouriers(request.data)
     }
@@ -114,7 +121,7 @@ const Order = ({fetchURL}) => {
                 </Table>
             </TableContainer>
 
-            <Button className="orderButton" size="large" color="primary" href="/clients/create">Create new order</Button>
+            <Link to="/client/create"><Button className="orderButton" size="large" color="primary">Create new order</Button></Link>
         </div>
     );
 };

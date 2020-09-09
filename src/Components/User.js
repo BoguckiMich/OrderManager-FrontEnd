@@ -12,7 +12,7 @@ const User = ({fetchURL}) => {
     const [userDetails, setUserDetails] = useState(false)
 
     const fetchData = async () => {
-        const request = await axios("http://localhost:8080/user");
+        const request = await axios.get("http://localhost:8080/user", {auth: {username: "michalek", password: "qwe123"}, method: "GET"});
         console.log(request.data)
         setUsers(request.data)
         // console.log(orders)
