@@ -6,7 +6,7 @@ import Navbar from "./Components/Navbar"
 import requests from "./requests";
 import {Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
-import OrderCreator from "./Components/OrderCreator";
+import ClientCreator from "./Components/ClientCreator";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
                     <User fetchURL={requests.fetchAllUsers}/>
                 </Route>
                 <Route path="/client/create">
-                    <OrderCreator  />
+                    <ClientCreator  />
                 </Route>
                 <Route path="/">
                     <Home/>
