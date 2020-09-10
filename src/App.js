@@ -6,7 +6,8 @@ import Navbar from "./Components/Navbar";
 import requests from "./requests";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Home from "./Components/Home";
-import OrderCreator from "./Components/OrderCreator";
+import ClientCreator from "./Components/ClientCreator";
+import Client from "./Components/Client";
 
 function App() {
   return (
