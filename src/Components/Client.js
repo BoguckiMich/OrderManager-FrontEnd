@@ -6,15 +6,15 @@ const ClientCreator = () => {
 
     const [clients, setClients] = useState([])
 
-    const fetchData = async () => {
+    const fetchClient = async () => {
         const request = await axios("http://localhost:8080/clients", {auth: {username: "michalek", password: "qwe123"}})
         console.log(request.data)
         setClients(request.data)
     }
 
     useEffect(()=>{
-        fetchData().catch(e=>console.log(e));
-    })
+        fetchClient().catch(e=>console.log(e));
+    },[])
 
     return (
         <div>

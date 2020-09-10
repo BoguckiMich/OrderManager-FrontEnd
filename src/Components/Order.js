@@ -17,11 +17,18 @@ const Order = ({fetchURL}) => {
     const [couriers, setCouriers] = useState([])
     const [status, setStatus] = React.useState('');
     const [orderValue, setOrderValue] = React.useState('')
+    const [clients, setClients] = useState([])
 
     const fetchData = async () => {
         const request = await axios("http://localhost:8080/order", {auth: {username: "michalek", password: "qwe123"}})
         console.log(request.data)
         setOrders(request.data)
+    }
+
+    const fetchClient = async () => {
+        const request = await axios("http://localhost:8080/clients", {auth: {username: "michalek", password: "qwe123"}})
+        console.log(request.data)
+        setClients(request.data)
     }
 
     // const fetchData = async () => {
@@ -43,6 +50,7 @@ const Order = ({fetchURL}) => {
     useEffect(() => {
         fetchData();
         fetchCourierData();
+        fetchClient()
     }, [])
 
 
@@ -135,7 +143,9 @@ const Order = ({fetchURL}) => {
                                 <Input placeholder="Name of order" type="text" value={orderValue}
                                        onChange={handleInputChange}/>
                             </TableCell>
-                            <TableCell >Client name</TableCell>
+                            <TableCell ><Select >{clients.map(c=>(
+                                <MenuItem key={c.id}>{c.firstName} {c.lastName}</MenuItem>
+                            ))}</Select></TableCell>
                             <TableCell align="right">
                                 <Select
                                     labelId="demo-simple-select-label"
